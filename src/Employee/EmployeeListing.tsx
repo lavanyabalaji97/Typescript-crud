@@ -6,6 +6,7 @@ import { Edit as EditIcon, Delete as DeleteIcon, List as ListIcon } from "@mui/i
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 
 
 const EmpListing = () => {
@@ -33,35 +34,31 @@ const EmpListing = () => {
 
 
    const handelDeleteItem = () => {
-      removeEmployee(deleteId)
+      axios.delete(`http://localhost:8000/employee/${deleteId}`)
          .then((res) => {
             const newData = data.filter(x => x.id !== deleteId)
             setData(newData);
             toast.success("Employee deleted successfully");
-
          })
          .catch((err) => {
             console.log(err.message)
-         })
+         });
       setShow(false)
    }
 
+
    useEffect(() => {
       const fetchData = async () => {
-        try {
-          const response = await fetch("http://localhost:8000/employee");
-          if (!response.ok) {
-            throw new Error("Failed to fetch employee data");
-          }
-          const data = await response.json();
-          setData(data);
-        } catch (error:any) {
-          console.log(error.message);
-        }
+         try {
+            const response = await axios.get("http://localhost:8000/employee");
+            setData(response.data);
+         } catch (error: any) {
+            console.log(error.message);
+         }
       };
-  
+
       fetchData();
-    }, []);
+   }, []);
 
    if (!data) {
       return <div className="fw-bold h1">Loading</div>

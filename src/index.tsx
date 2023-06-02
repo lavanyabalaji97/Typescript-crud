@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import Parent from './components/parent';
 
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -12,8 +13,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App/> 
-    
+    {/* <App/>  */}
+    <Parent/>
  
    </React.StrictMode>
 );

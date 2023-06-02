@@ -14,7 +14,6 @@
   ul{
     background-color:darkviolet;
     display: flex;
-    margin: 10px;
     list-style-type: none; 
     padding: 30px;
 
@@ -36,4 +35,3 @@
 .first-btn{
   margin-right: 2px;
 }
-

@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { showSuccessToast } from "../services/user";
 import { Container, Card, CardContent, Typography, TextField, Button } from '@mui/material';
 import { createUser } from "../services/user";
+import axios from 'axios'
 const EmployeeCreate = () => {
   const [name, namechange] = useState("");
   const [email, emailchange] = useState("");
@@ -13,6 +14,7 @@ const EmployeeCreate = () => {
   const [validation, valchange] = useState(false);
   const [phoneError, setPhoneError] = useState("");
   const navigate = useNavigate();
+
 
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,16 +47,19 @@ const EmployeeCreate = () => {
       setPhoneError("Please enter a valid 10-digit phone number");
       return;
     }
-    const empdata = { name, email, phone }
-    createUser(empdata)
-    .then((res:any) => {
-      showSuccessToast('user created');
-      window.setTimeout(() => {
-        navigate('/');
-      }, 1000);
-    });
-  }
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const empdata = { name, email, phone };
+    axios.post("http://localhost:8000/employee", empdata)
+      .then((res: any) => {
+        showSuccessToast('user created');
+        window.setTimeout(() => {
+          navigate('/');
+        }, 1000);
+      })
+      .catch((err: any) => {
+        console.log(err.message);
+      });
+  };
+  const handlePhoneChange = (e: any) => {
     if (e.target.value.length <= 10) {
       phonechange(e.target.value);
     }

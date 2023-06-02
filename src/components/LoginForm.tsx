@@ -1,81 +1,90 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@mui/material';
+import {
+  Button,
+  Container,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { redirect } from 'react-router-dom';
 
-interface LoginFormProps {
-  onLogin: (name: string, email: string, password: string) => void;
+interface LoginFormState {
+  email: any;
+  password: any;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+const initialLoginFormState: LoginFormState = {
+  email: '',
+  password: '',
+};
 
-  const handleNameChange = (event: any) => {
-    setName(event.target.value);
-  };
+const LoginPage = () => {
+  const [loginForm, setLoginForm] = useState<LoginFormState>(
+    initialLoginFormState
+  );
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleEmailChange = (event: any) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event: any) => {
-    setPassword(event.target.value);
-  };
-
-  const handleConfirmPasswordChange = (
-    event: any
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setConfirmPassword(event.target.value);
+    const { name, value } = event.target;
+    setLoginForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (password === confirmPassword) {
-      onLogin(name, email, password);
+    const userDataString = localStorage.getItem('userData');
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);  
+      if (
+        loginForm.email === userData.email &&
+        loginForm.password === userData.password
+      ) {
+        return redirect("/signup");
+      } else {
+        setErrorMessage('Invalid email or password');
+      }
     } else {
-      // Handle password mismatch error
-      console.log('Passwords do not match');
-    }
-  };
+      setErrorMessage('Email or password not found in storage');
+    };
 
+  }
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField
-        label="Name"
-        value={name}
-        onChange={handleNameChange}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Email"
-        value={email}
-        onChange={handleEmailChange}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Password"
-        value={password}
-        onChange={handlePasswordChange}
-        type="password"
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Confirm Password"
-        value={confirmPassword}
-        onChange={handleConfirmPasswordChange}
-        type="password"
-        fullWidth
-        margin="normal"
-      />
-      <Button type="submit" variant="contained" color="primary">
-        Login
-      </Button>
-    </form>
+    <Container maxWidth="sm">
+      <form onSubmit={handleFormSubmit}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Login
+        </Typography>
+
+        <TextField
+          fullWidth
+          label="Email"
+          name="email"
+          type="email"
+          value={loginForm.email}
+          onChange={handleInputChange}
+          margin="normal"
+          required
+        />
+
+        <TextField
+          fullWidth
+          label="Password"
+          name="password"
+          type="password"
+          value={loginForm.password}
+          onChange={handleInputChange}
+          margin="normal"
+          required
+        />
+
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Log In
+        </Button>
+
+        {errorMessage && <div>{errorMessage}</div>}
+      </form>
+    </Container>
   );
 };
 
-export default LoginForm;
+export default LoginPage;

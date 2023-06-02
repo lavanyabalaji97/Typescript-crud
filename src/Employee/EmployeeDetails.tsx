@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Card, CardContent, Typography, Button } from '@mui/material';
-
+import axios from 'axios'
 
 
 const EmployeeDetails = () => {
@@ -19,8 +19,8 @@ const EmployeeDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/employee/${empid}`);
-        const data = await response.json();
+        const response = await axios.get(`http://localhost:8000/employee/${empid}`);
+        const data = response.data;
         empdatachange(data);
       } catch (error:any) {
         console.log(error.message);
@@ -29,6 +29,7 @@ const EmployeeDetails = () => {
   
     fetchData();
   }, [empid]);
+  
   
   return (
 

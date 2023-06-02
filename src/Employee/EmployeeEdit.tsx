@@ -4,9 +4,7 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { showSuccessToast} from "../services/user";
 import { Container, Card, CardContent, Typography, TextField, Button } from '@mui/material';
-
-
-
+import axios from 'axios'
 
 function EmployeeEdit() {
     const { empid } = useParams();
@@ -15,8 +13,8 @@ function EmployeeEdit() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch(`http://localhost:8000/employee/${empid}`);
-          const data = await response.json();
+          const response = await axios.get(`http://localhost:8000/employee/${empid}`);
+          const data = response.data;
           namechange(data.name);
           emailchange(data.email);
           phonechange(data.phone);
@@ -25,7 +23,7 @@ function EmployeeEdit() {
           console.log(error.message);
         }
       };
-    
+  
       fetchData();
     }, [empid]);
     
@@ -36,21 +34,17 @@ function EmployeeEdit() {
     const [active, activechange] = useState(true);
     
 
-    const handleSubmit = async (e:any) => {
-      e.preventDefault();
-      const empdata = { name, email, phone, active };    
-      try {
-        const response = await fetch(`http://localhost:8000/employee/${empid}`, {
-          method: "PUT",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(empdata),
-        });    
-        const data = await response.json();
-        showSuccessToast("Saved successfully!");
-      } catch (error:any) {
-        console.log(error.message);
-      }
-    };
+     
+      const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        const empdata = { name, email, phone, active };
+        try {
+          const response = await axios.put(`http://localhost:8000/employee/${empid}`, empdata);
+          showSuccessToast("Edited successfully!");
+        } catch (error:any) {
+          console.log(error.message);
+        }
+      };
     
 
     return (
