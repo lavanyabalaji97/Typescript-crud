@@ -48,11 +48,11 @@ const EmployeeCreate = () => {
       return;
     }
     const empdata = { name, email, phone };
-    axios.post("http://localhost:8000/employee", empdata)
+    axios.post("http://localhost:8001/employee", empdata)
       .then((res: any) => {
         showSuccessToast('user created');
         window.setTimeout(() => {
-          navigate('/');
+          navigate('/employee');
         }, 1000);
       })
       .catch((err: any) => {

@@ -7,7 +7,8 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
-import CircularProgress from '@mui/material/CircularProgress';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 
 
 
@@ -15,6 +16,8 @@ const EmpListing = () => {
    const [data, setData] = useState<any[]>([])
    const [deleteId, setDeleteId] = useState("")
    const [show, setShow] = useState(false)
+  const [isSignupSuccessful, setIsSignupSuccessful] = useState<boolean>(false);
+
 
    const navigate = useNavigate()
    const LoadDetail = (id: any) => {
@@ -31,16 +34,16 @@ const EmpListing = () => {
 
    const Removefunction = (id: any) => {
       setDeleteId(id)
-      setShow(true)   
+      setShow(true)
    }
 
 
    const handelDeleteItem = () => {
-      axios.delete(`http://localhost:8000/employee/${deleteId}`)
+      axios.delete(`http://localhost:8001/employee/${deleteId}`)
          .then((res) => {
             const newData = data.filter(x => x.id !== deleteId)
             setData(newData);
-            toast.success("Employee deleted successfully");
+            toast.error("Employee deleted successfully");
          })
          .catch((err) => {
             console.log(err.message)
@@ -52,8 +55,11 @@ const EmpListing = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await axios.get("http://localhost:8000/employee");
+            const response = await axios.get("http://localhost:8001/employee");
             setData(response.data);
+                    setIsSignupSuccessful(true);
+
+
          } catch (error: any) {
             console.log(error.message);
          }
@@ -68,18 +74,32 @@ const EmpListing = () => {
 
    return (
       <div className="container">
-        <ToastContainer
-                  position="top-right"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="colored"
-                />
+       {isSignupSuccessful && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            padding: "10px",
+            zIndex: 999,
+          }}
+        >
+          <AccountCircleIcon fontSize="large" />
+        </div>
+      )}
+
+         <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+         />
          <Dialog open={show} onClose={handleClose}>
             <DialogTitle>Modal heading</DialogTitle>
             <DialogContent>
@@ -102,7 +122,7 @@ const EmpListing = () => {
                {
                   data.length === 0 ? (
                      <div>
-                            <CircularProgress color="secondary"/>
+                        <h4>No Data Found</h4>
                         <div>
                            <Link className="btn btn-success add-btn" to="employee/create">Add New(+)</Link>
                         </div>
@@ -131,13 +151,13 @@ const EmpListing = () => {
                                        <TableCell>{item.email}</TableCell>
                                        <TableCell>{item.phone}</TableCell>
                                        <TableCell>
-                                          <Button onClick={() => LoadEdit(item.id)} variant="contained" startIcon={<EditIcon />} sx={{ml: 1 }}>
+                                          <Button onClick={() => LoadEdit(item.id)} variant="contained" startIcon={<EditIcon />} sx={{ ml: 1 }}>
                                              Edit
                                           </Button>
-                                          <Button variant="contained" color="secondary" onClick={() => Removefunction(item.id)}  sx={{ml: 1 }}>
+                                          <Button variant="contained" color="secondary" onClick={() => Removefunction(item.id)} sx={{ ml: 1 }}>
                                              Delete
                                           </Button>
-                                          <Button onClick={() => LoadDetail(item.id)} color="success"  variant="contained" startIcon={<ListIcon />} sx={{ ml: 1 }}>
+                                          <Button onClick={() => LoadDetail(item.id)} color="success" variant="contained" startIcon={<ListIcon />} sx={{ ml: 1 }}>
                                              Details
                                           </Button>
                                        </TableCell>

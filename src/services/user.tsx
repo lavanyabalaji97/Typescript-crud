@@ -4,14 +4,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export const removeEmployee = async(id: any) => {
-        const res=await fetch(`http://localhost:8000/employee/${id}`, { method: "DELETE" })
+        const res=await fetch(`http://localhost:8001/employee/${id}`, { method: "DELETE" })
         .then((res) => res.json())
 }
 
-// api.js
-
 export const createUser = (empdata:any) => {
-    return fetch("http://localhost:8000/employee", {
+    return fetch("http://localhost:8001/employee", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(empdata)

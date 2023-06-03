@@ -10,6 +10,11 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import "./SignupForm.css";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+
 
 const SignupForm: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -17,13 +22,13 @@ const SignupForm: React.FC = () => {
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [isSignupSuccessful, setIsSignupSuccessful] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [nameError, setNameError] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [phoneError, setPhoneError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [confirmPasswordError, setConfirmPasswordError] = useState<string>("");
+  const navigate = useNavigate()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,19 +71,26 @@ const SignupForm: React.FC = () => {
     }
 
     if (isValid) {
-      // Save user information to local storage
-      const userData = {
-        name,
-        email,
-        phone,
-        password,
-      };
-      localStorage.setItem("userData", JSON.stringify(userData));
+      try {
+        const userData = {
+          name,
+          email,
+          phone,
+          password,
+        };
+        axios.post('http://localhost:8001/users', userData);
+        toast.success("user created successfully");
+        setTimeout(() => {
+        navigate('/login')
+        },2000);
+        // setIsSignupSuccessful(true);
+      } catch (error) {
+        console.log(error);
 
-      console.log("Submitted!");
-      setIsSignupSuccessful(true);
+      }
     }
   };
+ 
 
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -98,7 +110,7 @@ const SignupForm: React.FC = () => {
 
   return (
     <Container maxWidth="sm" className="container">
-      {isSignupSuccessful && (
+      {/* {isSignupSuccessful && (
         <div
           style={{
             position: "absolute",
@@ -110,7 +122,7 @@ const SignupForm: React.FC = () => {
         >
           <AccountCircleIcon fontSize="large" />
         </div>
-      )}
+      )} */}
       <Typography variant="h3" align="center" gutterBottom>
         SignUp
       </Typography>
@@ -215,6 +227,21 @@ const SignupForm: React.FC = () => {
         <Button type="submit" variant="contained" color="primary" fullWidth>
           signup
         </Button>
+        <div>
+        <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="colored"
+                />
+
+        </div>
       </form>
     </Container>
   );

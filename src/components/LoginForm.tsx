@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 import {
   Button,
   Container,
   TextField,
   Typography,
 } from '@mui/material';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 interface LoginFormState {
   email: any;
@@ -22,34 +27,61 @@ const LoginPage = () => {
     initialLoginFormState
   );
   const [errorMessage, setErrorMessage] = useState('');
+  const [isSignupSuccessful, setIsSignupSuccessful] = useState<boolean>(false);
+
+  const navigate  = useNavigate();
 
   const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: any
   ) => {
     const { name, value } = event.target;
     setLoginForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit =async (event: any) => {
     event.preventDefault();
-    const userDataString = localStorage.getItem('userData');
-    if (userDataString) {
-      const userData = JSON.parse(userDataString);  
-      if (
-        loginForm.email === userData.email &&
-        loginForm.password === userData.password
-      ) {
-        return redirect("/signup");
+    try {
+      const response = await axios.get('http://localhost:8001/users');
+      const userData = response.data;
+      const matchedUser = userData.find(
+        (user: any) =>
+          user.email === loginForm.email && user.password === loginForm.password
+      );      
+      if(matchedUser) {
+        setIsSignupSuccessful(true);
+        toast.success("Login successfully");
+        setErrorMessage('');
+        setTimeout(() => {
+          navigate("/employeelisting");
+
+        }, 2000);
+        
       } else {
         setErrorMessage('Invalid email or password');
+        // toast.error("Invalid email or password");
       }
-    } else {
-      setErrorMessage('Email or password not found in storage');
-    };
-
-  }
-  return (
+    }
+      catch (error) {
+        console.error('Error:', error);
+        setErrorMessage('An error occurred during login');
+      }    
+    }
+  
+     return (
     <Container maxWidth="sm">
+         {isSignupSuccessful && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            padding: "10px",
+            zIndex: 999,
+          }}
+        >
+          <AccountCircleIcon fontSize="large" />
+        </div>
+      )}
       <form onSubmit={handleFormSubmit}>
         <Typography variant="h4" align="center" gutterBottom>
           Login
@@ -80,11 +112,12 @@ const LoginPage = () => {
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Log In
         </Button>
+        {errorMessage && <div>{errorMessage}</div>}     
 
-        {errorMessage && <div>{errorMessage}</div>}
       </form>
+      
     </Container>
   );
-};
+  }
 
 export default LoginPage;

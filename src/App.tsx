@@ -28,12 +28,13 @@ function App() {
         <Routes>
           {/* Login */}
           {/* <Route path='/' element={<AuthGuard comp={EmployeeListing} />} /> */}
-          <Route path='/employeelisting' element={<EmployeeListing />} />
+          <Route path='/' element={<SignupForm/>}/>
+          <Route path='/login' element={<LoginPage/>}/>
+          <Route path='/employee' element={<EmployeeListing />} />
           <Route path='/employee/create' element={<EmployeeCreate />} />
           <Route path='/employee/detail/:empid' element={<EmployeeDetails />} />
           <Route path='/employee/edit/:empid' element={<EmployeeEdit />} />
-          <Route path='/signup' element={<SignupForm/>}/>
-          <Route path='/' element={<LoginPage/>}/>
+          
 
         </Routes>
       </BrowserRouter>

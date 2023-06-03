@@ -5,15 +5,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { showSuccessToast} from "../services/user";
 import { Container, Card, CardContent, Typography, TextField, Button } from '@mui/material';
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 function EmployeeEdit() {
     const { empid } = useParams();
+    const navigate=useNavigate()
     // const [empdata, empdatachange] = useState([])
 
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`http://localhost:8000/employee/${empid}`);
+          const response = await axios.get(`http://localhost:8001/employee/${empid}`);
           const data = response.data;
           namechange(data.name);
           emailchange(data.email);
@@ -39,8 +41,9 @@ function EmployeeEdit() {
         e.preventDefault();
         const empdata = { name, email, phone, active };
         try {
-          const response = await axios.put(`http://localhost:8000/employee/${empid}`, empdata);
+          const response = await axios.put(`http://localhost:8001/employee/${empid}`, empdata);
           showSuccessToast("Edited successfully!");
+          navigate('/')
         } catch (error:any) {
           console.log(error.message);
         }
@@ -95,7 +98,9 @@ function EmployeeEdit() {
                   </Button>
                   <Button component={Link} to="/" className="back-btn" variant="contained" sx={{ml: 1 }}>
                     Back
+                  
                   </Button>
+                  
                   <ToastContainer
                                     position="top-right"
                                     autoClose={5000}

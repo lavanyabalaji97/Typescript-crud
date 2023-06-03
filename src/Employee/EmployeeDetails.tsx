@@ -19,7 +19,7 @@ const EmployeeDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/employee/${empid}`);
+        const response = await axios.get(`http://localhost:8001/employee/${empid}`);
         const data = response.data;
         empdatachange(data);
       } catch (error:any) {

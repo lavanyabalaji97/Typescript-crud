@@ -1,10 +1,137 @@
 {
   "employee": [
     {
+      "name": "Lavanya",
+      "email": "lava@gmail.com",
+      "phone": "9876543211",
+      "id": 1
+    },
+    {
+      "name": "Lavanya",
+      "email": "lava@gmail.com",
+      "phone": "9876543211",
+      "id": 2
+    }
+  ],
+  "users": [
+    {
       "name": "tom",
       "email": "john@gmail.com",
       "phone": "9128374575",
+      "password": "1234",
       "id": 1
+    },
+    {
+      "name": "abc",
+      "email": "abc@gamil.com",
+      "phone": "1228767232",
+      "password": "1234",
+      "id": 2
+    },
+    {
+      "name": "abc",
+      "email": "abc@gamil.com",
+      "phone": "1228767232",
+      "password": "1234",
+      "id": 3
+    },
+    {
+      "name": "micky",
+      "email": "micky@gmail.com",
+      "phone": "9899817282",
+      "password": "1234",
+      "id": 4
+    },
+    {
+      "name": "john",
+      "email": "jackie@gmial.com",
+      "phone": "9283847757",
+      "password": "1234",
+      "id": 5
+    },
+    {
+      "name": "tom",
+      "email": "tom@gmail.com",
+      "phone": "9876543211",
+      "password": "1234",
+      "id": 6
+    },
+    {
+      "name": "john",
+      "email": "john@gmail.com",
+      "phone": "9876543211",
+      "password": "1234",
+      "id": 7
+    },
+    {
+      "name": "micky",
+      "email": "micky@gmial.com",
+      "phone": "9128374575",
+      "password": "1234",
+      "id": 8
+    },
+    {
+      "name": "john",
+      "email": "john@gmail.com",
+      "phone": "8818272772",
+      "password": "1234",
+      "id": 9
+    },
+    {
+      "name": "tom",
+      "email": "tom@gmail.com",
+      "phone": "8188172737",
+      "password": "1234",
+      "id": 10
+    },
+    {
+      "name": "xyz",
+      "email": "xyz@gmail.com",
+      "phone": "9128374575",
+      "password": "1234",
+      "id": 11
+    },
+    {
+      "name": "xyz",
+      "email": "xyz@gmail.com",
+      "phone": "8192882727",
+      "password": "1234",
+      "id": 12
+    },
+    {
+      "name": "abc",
+      "email": "abc@gmail.com",
+      "phone": "9498002109",
+      "password": "1234",
+      "id": 13
+    },
+    {
+      "name": "sam",
+      "email": "sam@gmail.com",
+      "phone": "8187722773",
+      "password": "1234",
+      "id": 14
+    },
+    {
+      "name": "tom",
+      "email": "tom@gmail.com",
+      "phone": "9188727262",
+      "password": "1111",
+      "id": 15
+    },
+    {
+      "name": "one",
+      "email": "one@gmail.com",
+      "phone": "9771666655",
+      "password": "1234",
+      "id": 16
+    },
+    {
+      "name": "xyz",
+      "email": "xyz@gmail.com",
+      "phone": "9876543211",
+      "password": "1234",
+      "id": 17
     }
   ]
 }
