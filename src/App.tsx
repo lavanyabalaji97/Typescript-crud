@@ -8,6 +8,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Employee/Navbar';
 import SignupForm from './components/Signup';
+import LoginPage from './components/LoginForm';
 
 // const AuthGuard = ({ comp: Comp}: any) => {
 //   const losingStatus = localStorage.getItem('loginstate');
@@ -31,6 +32,9 @@ function App() {
           <Route path='/employee/create' element={<EmployeeCreate />} />
           <Route path='/employee/detail/:empid' element={<EmployeeDetails />} />
           <Route path='/employee/edit/:empid' element={<EmployeeEdit />} />
+          <Route path='/signup' element={<SignupForm/>}/>
+          <Route path='/' element={<LoginPage/>}/>
+
         </Routes>
       </BrowserRouter>
     </div>

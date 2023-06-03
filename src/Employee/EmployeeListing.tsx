@@ -7,6 +7,8 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 
 const EmpListing = () => {
@@ -92,7 +94,7 @@ const EmpListing = () => {
                </Button>
             </DialogActions>
          </Dialog>
-         <div className="card">
+         <div className="card text-center">
             <div className="card-title">
                <h1>Employee Listing</h1>
             </div>
@@ -100,9 +102,9 @@ const EmpListing = () => {
                {
                   data.length === 0 ? (
                      <div>
-                        <h1>No Employee Found</h1>
+                            <CircularProgress color="secondary"/>
                         <div>
-                           <Link className="btn btn-success" to="employee/create">Add New(+)</Link>
+                           <Link className="btn btn-success add-btn" to="employee/create">Add New(+)</Link>
                         </div>
                      </div>
                   ) : (

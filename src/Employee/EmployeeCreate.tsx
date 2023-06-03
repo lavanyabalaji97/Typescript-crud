@@ -116,11 +116,11 @@ const EmployeeCreate = () => {
                 </div>
               </div>
               <div className="col-lg-12">
-                <div className="form-check">
-                  <Button variant="contained" type="submit" className="first-btn" color="success" sx={{ ml: 1 }}>
+                <div>
+                  <Button variant="contained" type="submit" className="first-btn butttons" color="success" sx={{ ml: 1 }}>
                     Save
                   </Button>
-                  <Button component={Link} to="/" className="back-btn" variant="contained" sx={{ ml: 1 }}>
+                  <Button component={Link} to="/" className="back-btn buttons" variant="contained" sx={{ ml: 1 }}>
                     Back
                   </Button>
                 </div>

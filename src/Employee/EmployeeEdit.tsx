@@ -89,7 +89,7 @@ function EmployeeEdit() {
                 </div>
               </div>
               <div className="col-lg-12">
-                <div className="form-check">
+                <div>
                   <Button variant="contained" type="submit" color="success" sx={{ml: 1 }}>
                     Save
                   </Button>
