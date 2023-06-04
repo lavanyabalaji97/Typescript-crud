@@ -52,7 +52,7 @@ const EmployeeCreate = () => {
       .then((res: any) => {
         showSuccessToast('user created');
         window.setTimeout(() => {
-          navigate('/employee');
+          navigate('/employees');
         }, 1000);
       })
       .catch((err: any) => {

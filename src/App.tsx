@@ -1,4 +1,3 @@
-
 import './App.css';
 import EmployeeCreate from './Employee/EmployeeCreate';
 import EmployeeDetails from './Employee/EmployeeDetails';
@@ -10,35 +9,36 @@ import Navbar from './Employee/Navbar';
 import SignupForm from './components/Signup';
 import LoginPage from './components/LoginForm';
 
-// const AuthGuard = ({ comp: Comp}: any) => {
-//   const losingStatus = localStorage.getItem('loginstate');
-//   if (losingStatus === 'logedin') {
-//     return <Comp></Comp>
-//   }
 
-//   return <Navigate to="/login" replace={true} />
 
-// }
 
 function App() {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
         <Routes>
           {/* Login */}
-          {/* <Route path='/' element={<AuthGuard comp={EmployeeListing} />} /> */}
-          <Route path='/' element={<SignupForm/>}/>
-          <Route path='/login' element={<LoginPage/>}/>
-          <Route path='/employee' element={<EmployeeListing />} />
-          <Route path='/employee/create' element={<EmployeeCreate />} />
-          <Route path='/employee/detail/:empid' element={<EmployeeDetails />} />
-          <Route path='/employee/edit/:empid' element={<EmployeeEdit />} />
-          
+          <Route path="/" element={<SignupForm />} />
+          <Route path="/login" element={<LoginPage />} />          
+          {isLoggedIn ? (
+            <>
+              <Route path="/employees" element={<EmployeeListing />} />
+              <Route path="employee/employee/create" element={<EmployeeCreate />} />
+              <Route path="employee/employee/detail/:empid" element={<EmployeeDetails />} />
+              <Route path="employee/employee/edit/:empid" element={<EmployeeEdit />} />
+            </>
+          ) : (
+            <Route path="*" element={<Navigate to="/login" />} />
+          )}
 
+        
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
+
 export default App;

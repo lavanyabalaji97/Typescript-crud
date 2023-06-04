@@ -11,6 +11,36 @@
       "email": "lava@gmail.com",
       "phone": "9876543211",
       "id": 2
+    },
+    {
+      "name": "pen",
+      "email": "pen@gmail.com",
+      "phone": "9128374575",
+      "id": 3
+    },
+    {
+      "name": "Lavanya",
+      "email": "jackiechan@gmial.com",
+      "phone": "9123456778",
+      "id": 4
+    },
+    {
+      "name": "Lavanya",
+      "email": "lavanya@gmail.com",
+      "phone": "828723737",
+      "id": 5
+    },
+    {
+      "name": "tom",
+      "email": "tom@gmail.com",
+      "phone": "9159421739",
+      "id": 6
+    },
+    {
+      "name": "tom",
+      "email": "tom@gmail.com",
+      "phone": "9182837377",
+      "id": 7
     }
   ],
   "users": [
@@ -132,6 +162,34 @@
       "phone": "9876543211",
       "password": "1234",
       "id": 17
+    },
+    {
+      "name": "iiiiiiiiiiiiiiiiii",
+      "email": "john@gmail.com",
+      "phone": "8818272772",
+      "password": "1234",
+      "id": 18
+    },
+    {
+      "name": "user",
+      "email": "dora@gmail.com",
+      "phone": "8182727272",
+      "password": "1234",
+      "id": 19
+    },
+    {
+      "name": "abc",
+      "email": "abc@gmail.com",
+      "phone": "9128374575",
+      "password": "1234",
+      "id": 20
+    },
+    {
+      "name": "micky",
+      "email": "micky@gmial.com",
+      "phone": "9876543211",
+      "password": "1234",
+      "id": 21
     }
   ]
 }

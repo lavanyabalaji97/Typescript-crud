@@ -1,58 +1,58 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { showSuccessToast} from "../services/user";
+import { showSuccessToast } from "../services/user";
 import { Container, Card, CardContent, Typography, TextField, Button } from '@mui/material';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
 function EmployeeEdit() {
-    const { empid } = useParams();
-    const navigate=useNavigate()
-    // const [empdata, empdatachange] = useState([])
+  const { empid } = useParams();
+  const navigate = useNavigate()
+  // const [empdata, empdatachange] = useState([])
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(`http://localhost:8001/employee/${empid}`);
-          const data = response.data;
-          namechange(data.name);
-          emailchange(data.email);
-          phonechange(data.phone);
-          activechange(data.isactive);
-        } catch (error:any) {
-          console.log(error.message);
-        }
-      };
-  
-      fetchData();
-    }, [empid]);
-    
-    // const [id, idchange] = useState("");
-    const [name, namechange] = useState("");
-    const [email, emailchange] = useState("");
-    const [phone, phonechange] = useState("");
-    const [active, activechange] = useState(true);
-    
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8001/employee/${empid}`);
+        const data = response.data;
+        namechange(data.name);
+        emailchange(data.email);
+        phonechange(data.phone);
+        activechange(data.isactive);
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    };
 
-     
-      const handleSubmit = async (e: any) => {
-        e.preventDefault();
-        const empdata = { name, email, phone, active };
-        try {
-          const response = await axios.put(`http://localhost:8001/employee/${empid}`, empdata);
-          showSuccessToast("Edited successfully!");
-          navigate('/')
-        } catch (error:any) {
-          console.log(error.message);
-        }
-      };
-    
+    fetchData();
+  }, [empid]);
 
-    return (
+  // const [id, idchange] = useState("");
+  const [name, namechange] = useState("");
+  const [email, emailchange] = useState("");
+  const [phone, phonechange] = useState("");
+  const [active, activechange] = useState(true);
 
-        <Container maxWidth="sm" className="m-auto">
+
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const empdata = { name, email, phone, active };
+    try {
+      const response = await axios.put(`http://localhost:8001/employee/${empid}`, empdata);
+      showSuccessToast("Edited successfully!");
+      navigate('/employees')
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+
+  return (
+
+    <Container maxWidth="sm" className="m-auto">
       <form onSubmit={handleSubmit}>
         <Card sx={{ textAlign: 'left' }}>
           <CardContent>
@@ -66,7 +66,7 @@ function EmployeeEdit() {
                     required
                     label="Name"
                     value={name}
-                    onChange={(e)=>namechange(e.target.value)}
+                    onChange={(e) => namechange(e.target.value)}
                     fullWidth
                   />
                 </div>
@@ -76,7 +76,7 @@ function EmployeeEdit() {
                   <TextField
                     label="Email"
                     value={email}
-                    onChange={(e)=>emailchange(e.target.value)}
+                    onChange={(e) => emailchange(e.target.value)}
                     fullWidth
                   />
                 </div>
@@ -86,33 +86,34 @@ function EmployeeEdit() {
                   <TextField
                     label="Phone"
                     value={phone}
-                    onChange={(e)=>phonechange(e.target.value)}
+                    onChange={(e) => phonechange(e.target.value)}
+                    inputProps={{ maxLength: 10 }}
                     fullWidth
                   />
                 </div>
               </div>
               <div className="col-lg-12">
                 <div>
-                  <Button variant="contained" type="submit" color="success" sx={{ml: 1 }}>
+                  <Button variant="contained" type="submit" color="success" sx={{ ml: 1 }}>
                     Save
                   </Button>
-                  <Button component={Link} to="/" className="back-btn" variant="contained" sx={{ml: 1 }}>
+                  <Button component={Link} to="/employees" className="back-btn" variant="contained" sx={{ ml: 1 }}>
                     Back
-                  
+
                   </Button>
-                  
+
                   <ToastContainer
-                                    position="top-right"
-                                    autoClose={5000}
-                                    hideProgressBar={false}
-                                    newestOnTop={false}
-                                    closeOnClick
-                                    rtl={false}
-                                    pauseOnFocusLoss
-                                    draggable
-                                    pauseOnHover
-                                    theme="colored"
-                                />
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                  />
                 </div>
               </div>
             </div>
@@ -121,7 +122,7 @@ function EmployeeEdit() {
       </form>
     </Container>
 
-    )
+  )
 
 }
 export default EmployeeEdit;

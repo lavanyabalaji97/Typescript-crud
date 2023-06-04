@@ -46,7 +46,7 @@ const EmployeeDetails = () => {
             <Typography variant="h6">Contact Details</Typography>
             <Typography>Email is: {empdata.email}</Typography>
             <Typography>Phone is: {empdata.phone}</Typography>
-            <Button component={Link} to="/" variant="contained" className="back-btn" color="secondary" sx={{ mt: 2 }}>
+            <Button component={Link} to="/employees" variant="contained" className="back-btn" color="secondary" sx={{ mt: 2 }}>
               Back to Listing
             </Button>
             

@@ -6,7 +6,6 @@ import {
   Button,
   InputAdornment,
 } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import "./SignupForm.css";
@@ -81,8 +80,8 @@ const SignupForm: React.FC = () => {
         axios.post('http://localhost:8001/users', userData);
         toast.success("user created successfully");
         setTimeout(() => {
-        navigate('/login')
-        },2000);
+          navigate('/login')
+        }, 2000);
         // setIsSignupSuccessful(true);
       } catch (error) {
         console.log(error);
@@ -90,7 +89,7 @@ const SignupForm: React.FC = () => {
       }
     }
   };
- 
+
 
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -228,18 +227,18 @@ const SignupForm: React.FC = () => {
           signup
         </Button>
         <div>
-        <ToastContainer
-                  position="top-right"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="colored"
-                />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
 
         </div>
       </form>

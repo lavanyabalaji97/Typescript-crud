@@ -8,15 +8,14 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
-
-
+import CircularProgress from '@mui/material/CircularProgress';
 
 const EmpListing = () => {
    const [data, setData] = useState<any[]>([])
    const [deleteId, setDeleteId] = useState("")
    const [show, setShow] = useState(false)
-  const [isSignupSuccessful, setIsSignupSuccessful] = useState<boolean>(false);
+   const [isSignupSuccessful, setIsSignupSuccessful] = useState<boolean>(false);
+   const [isLogout,setLogout]=useState<boolean>(false)
 
 
    const navigate = useNavigate()
@@ -57,36 +56,36 @@ const EmpListing = () => {
          try {
             const response = await axios.get("http://localhost:8001/employee");
             setData(response.data);
-                    setIsSignupSuccessful(true);
-
-
+            setIsSignupSuccessful(true);
          } catch (error: any) {
             console.log(error.message);
          }
       };
-
       fetchData();
    }, []);
 
-   if (!data) {
-      return <div className="fw-bold h1">Loading</div>
+   const handleLogout=()=>{
+      localStorage.setItem('isLoggedIn', 'false'); 
+      navigate('/login')
    }
 
    return (
       <div className="container">
-       {isSignupSuccessful && (
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            padding: "10px",
-            zIndex: 999,
-          }}
-        >
-          <AccountCircleIcon fontSize="large" />
-        </div>
-      )}
+
+         {isSignupSuccessful && (
+            <div
+               style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  padding: "10px",
+                  zIndex: 999,
+               }}
+            >
+               <AccountCircleIcon fontSize="large" />
+               <button onClick={handleLogout}>LogOut</button>
+            </div>
+         )}
 
          <ToastContainer
             position="top-right"

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { ToastContainer, toast} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
 import {
   Button,
   Container,
@@ -29,7 +28,7 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isSignupSuccessful, setIsSignupSuccessful] = useState<boolean>(false);
 
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
   const handleInputChange = (
     event: any
@@ -38,7 +37,7 @@ const LoginPage = () => {
     setLoginForm((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleFormSubmit =async (event: any) => {
+  const handleFormSubmit = async (event: any) => {
     event.preventDefault();
     try {
       const response = await axios.get('http://localhost:8001/users');
@@ -46,30 +45,30 @@ const LoginPage = () => {
       const matchedUser = userData.find(
         (user: any) =>
           user.email === loginForm.email && user.password === loginForm.password
-      );      
-      if(matchedUser) {
+      );
+      if (matchedUser) {        
         setIsSignupSuccessful(true);
         toast.success("Login successfully");
         setErrorMessage('');
+        localStorage.setItem('isLoggedIn', 'true'); 
         setTimeout(() => {
-          navigate("/employeelisting");
-
+          navigate("/employees");
         }, 2000);
-        
+
       } else {
         setErrorMessage('Invalid email or password');
-        // toast.error("Invalid email or password");
+        toast.error("Invalid email or password");
       }
     }
-      catch (error) {
-        console.error('Error:', error);
-        setErrorMessage('An error occurred during login');
-      }    
+    catch (error) {
+      console.error('Error:', error);
+      setErrorMessage('An error occurred during login');
     }
-  
-     return (
+  }
+
+  return (
     <Container maxWidth="sm">
-         {isSignupSuccessful && (
+      {isSignupSuccessful && (
         <div
           style={{
             position: "absolute",
@@ -112,12 +111,25 @@ const LoginPage = () => {
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Log In
         </Button>
-        {errorMessage && <div>{errorMessage}</div>}     
-
+        {errorMessage && <div>{errorMessage}</div>}
+        <div>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
+        </div>
       </form>
-      
+
     </Container>
   );
-  }
+}
 
 export default LoginPage;
